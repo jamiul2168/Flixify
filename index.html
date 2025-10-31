@@ -284,16 +284,39 @@ button, input, select, textarea {
 
 /* The main card wrapper */
 .movie-card {
-    background: var(--glass);
-    border-radius: var(--radius);
+    background: #000000; /* একটি সলিড গাঢ় রঙ দেওয়া হয়েছে */
+    border-radius: 8px;
     overflow: hidden;
     position: relative;
-    border: 1px solid var(--glass-edge);
-    backdrop-filter: blur(10px);
-    box-shadow: 
-        inset 0 1px 1px rgba(255, 255, 255, 0.1), 
-        var(--shadow);
+    z-index: 1;
 }
+
+/* The animated gradient border */
+/* অ্যানিমেটেড বর্ডারের জন্য এই নতুন কোডটি ব্যবহার করুন */
+.movie-card::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* কার্ডের পুরো জায়গা জুড়ে থাকবে */
+    border-radius: 8px; /* কার্ডের কোণার সাথে ম্যাচ করবে */
+    padding: 2.5px; /* বর্ডারের পুরুত্ব */
+    background: linear-gradient(45deg, #00f7ff, #fbff00, #00f7ff, #fbff00); /* গ্রেডিয়েন্ট রঙ */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 2; /* বর্ডারটিকে সবার উপরে নিয়ে আসা হয়েছে */
+    pointer-events: none; /* যাতে বর্ডারের উপর ক্লিক করলে ছবির লিংকে কাজ করে */
+    animation: gradientShift 4s linear infinite;
+    background-size: 200% 200%;
+}
+/* Keyframes for the border animation */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 
 /* The container for the poster image */
@@ -322,6 +345,7 @@ button, input, select, textarea {
 }
 
 /* The title text */
+/* The title text */
 .movie-title {
     margin: 0;
     padding: 0;
@@ -331,22 +355,24 @@ button, input, select, textarea {
     overflow: hidden;
     text-overflow: ellipsis;
 
-    background: linear-gradient(90deg, #07ddf5, #07f596);
+    background: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-    display: inline-block;
+    display: block;
 }
 
 
 
       
 
+         /*--badge--*/
+
         .flat-label {
     position: absolute;
-    top: 16px;
-    left: 16px;
+    top: 10px;
+    left: 02px;
     background: linear-gradient(45deg, #00eeff, #fbff00);
     color: black;
     padding: 6px 12px;
@@ -357,6 +383,7 @@ button, input, select, textarea {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
 }
+
 
 
         .movie-badge {
@@ -374,9 +401,9 @@ button, input, select, textarea {
         }
 
       
-        .colored-text {
+         .colored-text {
     font-weight: bold;
-    background: linear-gradient(90deg, #ff00cc, #333399, #ffe259, #ffa751);
+    background: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 2px 10px rgba(0, 113, 255, 0.2);
@@ -387,25 +414,26 @@ button, input, select, textarea {
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;
-        background-image: linear-gradient(90deg, #ff00cc, #333399, #ffe259, #ffa751);
+        background-image: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     }
     25% {
         background-position: 50% 50%;
-        background-image: linear-gradient(90deg, #b92b27, #1565c0, #12c2e9, #c471ed);
+        background-image: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     }
     50% {
         background-position: 100% 50%;
-        background-image: linear-gradient(90deg, #f64f59, #c6ffdd, #fbd786, #f7797d);
+        background-image: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     }
     75% {
         background-position: 50% 50%;
-        background-image: linear-gradient(90deg, #ffe259, #ffa751, #ff00cc, #333399);
+        background-image: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     }
     100% {
         background-position: 0% 50%;
-        background-image: linear-gradient(90deg, #333399, #ff00cc, #ffe259, #ffa751);
+        background-image: linear-gradient(90deg, #00ffc3, #f2ff00, #00fbff);
     }
 }
+
 
         .movie-categories {
             display: flex;
@@ -3351,15 +3379,4 @@ window.history.replaceState({}, document.title, clean_uri);
 
    
 </body>
-
-
 </html>
-
-
-
-
-
-
-
-
-
